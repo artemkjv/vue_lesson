@@ -2,7 +2,7 @@
   <nav class="navbar navbar-light">
     <div class="container">
       <router-link class="navbar-brand" :to="{name: 'Home'}" active-class="active">
-        MediumClone
+        Devonics.Push
       </router-link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
@@ -14,7 +14,7 @@
           <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'Home'}" active-class="active">
               <i class="ion-compose"></i> &nbsp;
-              New Article
+              Cabinet
             </router-link>
           </li>
           <li class="nav-item">
@@ -24,10 +24,9 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'Home', params: {slug: currentUser.username}}" active-class="active">
-              <img :src="currentUser.image" class="user-pic" alt="User Picture">
-              &nbsp;
-              {{ currentUser.username }}
+            <router-link class="nav-link" :to="{name: 'Home', params: {slug: currentUser.login}}" active-class="active">
+              <img :v-if="currentUser.image" :src="currentUser.image" class="user-pic" alt="User Picture">
+              {{ currentUser.login }}
             </router-link>
           </li>
         </template>

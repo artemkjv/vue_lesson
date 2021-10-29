@@ -12,13 +12,16 @@
           <mcv-validation-errors v-if="validationErrors" :validation-errors="validationErrors"></mcv-validation-errors>
           <form @submit.prevent="onSubmit">
             <fieldset class="form-group">
-              <input type="text" class="form-control form-control-lg" placeholder="Username" v-model="username">
+              <input type="text" class="form-control form-control-lg" placeholder="Username" v-model="login">
             </fieldset>
             <fieldset class="form-group">
               <input type="text" class="form-control form-control-lg" placeholder="Email" v-model="email">
             </fieldset>
             <fieldset class="form-group">
               <input type="password" class="form-control form-control-lg" placeholder="Password" v-model="password">
+            </fieldset>
+            <fieldset class="form-group">
+              <input type="password" class="form-control form-control-lg" placeholder="Password Confirmation" v-model="password_confirmation">
             </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right" :disabled="isSubmitting">Sign Up</button>
           </form>
@@ -39,9 +42,10 @@
     },
     data(){
       return {
-        username: '',
+        login: '',
         email: '',
         password: '',
+        password_confirmation: ''
       }
     },
     computed: {
@@ -54,8 +58,9 @@
       onSubmit(){
         this.$store.dispatch(actionTypes.register, {
           email: this.email,
-          username: this.username,
-          password: this.password
+          login: this.login,
+          password: this.password,
+          password_confirmation: this.password_confirmation
         })
         .then(() => {
           this.$router.push({name: 'Home'})
