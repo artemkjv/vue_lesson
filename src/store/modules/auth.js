@@ -19,6 +19,7 @@ export const mutationTypes = {
     loginStart: '[auth] loginStart',
     loginSuccess: '[auth] loginSuccess',
     loginFailure: '[auth] loginFailure',
+
     getCurrentUserStart: '[auth] getCurrentUserStart',
     getCurrentUserSuccess: '[auth] getCurrentUserSuccess',
     getCurrentUserFailure: '[auth] getCurrentUserFailure'
@@ -54,11 +55,25 @@ const mutations = {
         state.currentUser = payload
         state.isLoggedIn = true
     },
+    [mutationTypes.getCurrentUserStart](state){
+        state.isLoading = true;
+    },
+    [mutationTypes.getCurrentUserSuccess](state, payload){
+        state.isLoading = false
+        state.currentUser = payload
+        state.isLoggedIn = true
+    },
+    [mutationTypes.getCurrentUserFailure](state){
+        state.isLoading = false
+        state.isLoggedIn = false
+        state.currentUser = null
+    }
 }
 
 export const actionTypes = {
     register: '[auth] register',
-    login: '[auth] login'
+    login: '[auth] login',
+    getCurrentUser: '[auth] getCurrentUser'
 }
 
 const actions = {
@@ -87,6 +102,20 @@ const actions = {
                 })
                 .catch(result => {
                     context.commit(mutationTypes.loginFailure, result.response.data.errors)
+                })
+        })
+    },
+    [actionTypes.getCurrentUser](context){
+        return new Promise(resolve => {
+            context.commit(mutationTypes.getCurrentUserStart)
+            authApi
+                .getCurrentUser()
+                .then(response => {
+                    context.commit(mutationTypes.getCurrentUserSuccess, response.data.user)
+                    resolve(response.data.user)
+                })
+                .catch(() => {
+                    context.commit(mutationTypes.getCurrentUserFailure)
                 })
         })
     }

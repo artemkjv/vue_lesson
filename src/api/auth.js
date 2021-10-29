@@ -9,7 +9,7 @@ const login = credentials => {
 }
 
 const getCurrentUser = () => {
-    return axios.get('/')
+    return axios.get('/user')
 }
 
 export default {
