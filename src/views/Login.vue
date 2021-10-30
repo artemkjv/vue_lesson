@@ -52,7 +52,7 @@ export default {
         password: this.password
       })
       .then(() => {
-        this.$router.push({name: 'Home'})
+        this.$router.push({name: 'GlobalFeed'})
       })
     },
     clearValidationErrors(){
