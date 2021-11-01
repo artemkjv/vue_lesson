@@ -7,6 +7,7 @@ import Cabinet from '@/views/Cabinet'
 import authMiddleware from '@/router/middleware/auth'
 import guestMiddleware from '@/router/middleware/guest'
 import middlewarePipeline from '@/router/middlewarePipeline'
+import CabinetSettings from "@/views/CabinetSettings";
 
 
 const routes = [
@@ -42,6 +43,16 @@ const routes = [
     meta: {
       middleware: [
         authMiddleware
+      ]
+    }
+  },
+  {
+    path: '/cabinet/settings',
+    name: 'CabinetSettings',
+    component: CabinetSettings,
+    meta: {
+      middleware: [
+          authMiddleware
       ]
     }
   }

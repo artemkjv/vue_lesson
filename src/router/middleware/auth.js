@@ -1,5 +1,7 @@
+import getterTypes from '@/store/modules/auth'
+
 export default ({next, store}) => {
-    if(store.state.auth.isAnonymous){
+    if(store.getters[getterTypes.isAnonymous]){
         return next({
             name: 'Login'
         })

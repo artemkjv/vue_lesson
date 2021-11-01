@@ -12,13 +12,13 @@
         </li>
         <template v-if="isLoggedIn">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'Home'}" active-class="active">
+            <router-link class="nav-link" :to="{name: 'Cabinet'}" active-class="active">
               <i class="ion-compose"></i> &nbsp;
               Cabinet
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'Home'}" active-class="active">
+            <router-link class="nav-link" :to="{name: 'CabinetSettings'}" active-class="active">
               <i class="ion-gear-a"></i> &nbsp;
               Settings
             </router-link>
