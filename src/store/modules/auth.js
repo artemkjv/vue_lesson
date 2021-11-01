@@ -1,5 +1,8 @@
 import authApi from '@/api/auth'
 import {setItem} from "@/helpers/persistanceStorage";
+import {removeItem} from "@/helpers/persistanceStorage";
+
+const TOKEN_NAME = 'accessToken';
 
 const state = {
     isSubmitting: false,
@@ -14,15 +17,20 @@ export const mutationTypes = {
     registerSuccess: '[auth] registerSuccess',
     registerFailure: '[auth] registerFailure',
 
-    clearValidationErrors: '[auth] clearValidationErrors',
-
     loginStart: '[auth] loginStart',
     loginSuccess: '[auth] loginSuccess',
     loginFailure: '[auth] loginFailure',
 
     getCurrentUserStart: '[auth] getCurrentUserStart',
     getCurrentUserSuccess: '[auth] getCurrentUserSuccess',
-    getCurrentUserFailure: '[auth] getCurrentUserFailure'
+    getCurrentUserFailure: '[auth] getCurrentUserFailure',
+
+    logout: '[auth] logout',
+
+    updateStart: '[auth] updateProfileStart',
+    updateSuccess: '[auth] updateProfileSuccess',
+    updateFailure: '[auth] updateProfileFailure',
+
 }
 
 const mutations = {
@@ -67,13 +75,32 @@ const mutations = {
         state.isLoading = false
         state.isLoggedIn = false
         state.currentUser = null
+    },
+    [mutationTypes.logout](state){
+        state.isAnonymous = true
+        state.isLoggedIn = false
+        state.currentUser = null
+        removeItem(TOKEN_NAME)
+
+    },
+    [mutationTypes.updateStart](state){
+        state.isSubmitting = true
+    },
+    [mutationTypes.updateSuccess](state, payload){
+        state.currentUser = payload
+        state.isSubmitting = false
+    },
+    [mutationTypes.updateFailure](state, payload){
+        state.isSubmitting = false
+        state.validationErrors = payload
     }
 }
 
 export const actionTypes = {
     register: '[auth] register',
     login: '[auth] login',
-    getCurrentUser: '[auth] getCurrentUser'
+    getCurrentUser: '[auth] getCurrentUser',
+    update: '[auth] update'
 }
 
 const actions = {
@@ -83,7 +110,7 @@ const actions = {
             authApi.register(credentials)
                 .then(response => {
                     context.commit(mutationTypes.registerSuccess, response.data.user)
-                    setItem('accessToken', response.data.user.token)
+                    setItem(TOKEN_NAME, response.data.user.token)
                     resolve(response.data.user)
                 })
                 .catch(result => {
@@ -97,7 +124,7 @@ const actions = {
             authApi.login(credentials)
                 .then(response => {
                     context.commit(mutationTypes.loginSuccess, response.data.user)
-                    setItem('accessToken', response.data.user.token)
+                    setItem(TOKEN_NAME, response.data.user.token)
                     resolve(response.data.user)
                 })
                 .catch(result => {
@@ -118,13 +145,29 @@ const actions = {
                     context.commit(mutationTypes.getCurrentUserFailure)
                 })
         })
+    },
+    [actionTypes.update](context, data){
+        return new Promise(resolve => {
+            context.commit(mutationTypes.updateStart)
+            authApi.update(data)
+                .then(response => {
+                    context.commit(mutationTypes.updateSuccess, response.data.user)
+                    resolve(response.data.user)
+                })
+                .catch(result => {
+                    context.commit(mutationTypes.updateFailure, result.response.data.errors)
+                })
+
+        })
     }
 }
 
 export const getterTypes = {
     currentUser: '[auth] currentUser',
     isLoggedIn: '[auth] isLoggedIn',
-    isAnonymous: '[auth] isAnonymous'
+    isAnonymous: '[auth] isAnonymous',
+    isSubmitting: '[auth] isSubmitting',
+    validationErrors: '[auth] validationErrors'
 }
 
 const getters = {
@@ -136,6 +179,12 @@ const getters = {
     },
     [getterTypes.isAnonymous]: state => {
         return state.isLoggedIn === false
+    },
+    [getterTypes.isSubmitting]: state => {
+        return state.isSubmitting
+    },
+    [getterTypes.validationErrors]: state => {
+        return state.validationErrors
     }
 }
 

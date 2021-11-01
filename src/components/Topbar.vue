@@ -24,7 +24,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'Home', params: {slug: currentUser.login}}" active-class="active">
+            <router-link class="nav-link" :to="{name: 'Cabinet', params: {slug: currentUser.login}}" active-class="active">
               <img v-if="currentUser.image" :src="currentUser.image" class="user-pic" alt="User Picture">
               {{ currentUser.login }}
             </router-link>

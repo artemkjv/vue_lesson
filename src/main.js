@@ -8,10 +8,10 @@ Promise.race([
     store.dispatch(actionTypes.getCurrentUser),
     new Promise((rs) => setTimeout(rs, 2000))
 ]).then(() => {
-    createApp(App)
-        .use(router)
-        .use(store)
-        .mount('#app')
+
 })
 
-
+createApp(App)
+    .use(router)
+    .use(store)
+    .mount('#app')
