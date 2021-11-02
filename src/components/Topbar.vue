@@ -48,7 +48,7 @@
 </template>
 <script>
 import {getterTypes} from "@/store/modules/auth";
-import {mapGetters} from "vuex"
+import {mapGetters, mapState} from "vuex"
 
 export default {
   name: 'McvTopBar',
@@ -58,6 +58,9 @@ export default {
         isLoggedIn: getterTypes.isLoggedIn,
         isAnonymous: getterTypes.isAnonymous
     }),
+    ...mapState({
+      siteName: state => state.siteName
+    })
   }
 }
 </script>

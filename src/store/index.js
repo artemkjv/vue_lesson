@@ -3,6 +3,7 @@ import auth from '@/store/modules/auth'
 
 export default createStore({
   state: {
+    siteName: 'Devonics.Push'
   },
   mutations: {
   },
