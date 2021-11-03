@@ -16,7 +16,7 @@ export default {
       isLoggedIn: getterTypes.isLoggedIn,
       isAnonymous: getterTypes.isAnonymous
     })
-  }
+  },
 }
 </script>
 
