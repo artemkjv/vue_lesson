@@ -1,6 +1,9 @@
 
 <template>
   <div class="container">
+    <div class="d-flex">
+      <router-link :to="{name: 'AppCreate'}" class="btn btn-primary mb-2">New App/Website</router-link>
+    </div>
     <div v-if="isLoading">Loading...</div>
     <div v-if="error">Something bad happened</div>
     <div v-if="feed">
@@ -9,12 +12,14 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Title</th>
+          <th scope="col">Push Users</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="(app, index) in feed.apps" :key="index">
-          <th scope="row">{{ index + 1}}</th>
-          <td colspan="2">{{ app.title }}</td>
+          <td>{{ index + 1}}</td>
+          <td>{{ app.title }}</td>
+          <td>{{ app.push_user_total }}</td>
         </tr>
         </tbody>
       </table>
@@ -31,7 +36,7 @@ import Pagination from '@/components/Pagination';
 import {PAGE_LIMIT} from "@/helpers/vars";
 import {stringify, parseUrl} from 'query-string'
 export default {
-  name: "Apps",
+  name: "AppIndex",
   data(){
     return{
       limit: PAGE_LIMIT,

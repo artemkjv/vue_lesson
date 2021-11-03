@@ -8,8 +8,8 @@ import authMiddleware from '@/router/middleware/auth'
 import guestMiddleware from '@/router/middleware/guest'
 import middlewarePipeline from '@/router/middlewarePipeline'
 import CabinetSettings from "@/views/CabinetSettings";
-import Apps from "@/views/Apps";
-
+import AppIndex from "@/views/App/Index";
+import AppCreate from '@/views/App/Create'
 
 const routes = [
   {
@@ -49,8 +49,18 @@ const routes = [
   },
   {
     path: '/app/index',
-    name: 'Apps',
-    component: Apps,
+    name: 'AppIndex',
+    component: AppIndex,
+    meta: {
+      middleware: [
+        authMiddleware
+      ]
+    }
+  },
+  {
+    path: '/app/create',
+    name: 'AppCreate',
+    component: AppCreate,
     meta: {
       middleware: [
         authMiddleware

@@ -19,7 +19,7 @@
           </li>
           <li>
             <div class="sidebar-group">
-              <router-link :to="{name: 'Apps'}">
+              <router-link :to="{name: 'AppIndex'}">
                 <i class="ion-grid sidebar-icon" />
                 <span class="sidebar-text">Applications</span>
               </router-link>
