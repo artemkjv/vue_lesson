@@ -14,7 +14,7 @@
     "axios": "^0.23.0",
     "core-js": "^3.6.5",
     "offside-js": "^1.4.0",
-    "query-string": "^4.3.4",
+    "query-string": "^7.0.1",
     "vue": "^3.2.20",
     "vue-router": "^4.0.12",
     "vue-sidebar-menu": "^5.1.2",

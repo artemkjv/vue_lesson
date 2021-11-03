@@ -17,7 +17,7 @@ const mutations = {
         state.isLoading = true;
         state.data = null
     },
-    [mutationTypes.getEntitiesStart](state, payload){
+    [mutationTypes.getEntitiesSuccess](state, payload){
         state.data = payload
         state.isLoading = false
     },

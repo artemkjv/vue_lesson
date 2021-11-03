@@ -1,15 +1,26 @@
 
 <template>
-  <div>
+  <div class="container">
     <div v-if="isLoading">Loading...</div>
     <div v-if="error">Something bad happened</div>
     <div v-if="feed">
-      <div class="app-row" v-for="(app, index) in feed.apps" :key="index">
-        app
-      </div>
-      <pagination :total="101" :limit="limit" :currentPage="currentPage" :url="baseUrl" />
-    </div>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(app, index) in feed.apps" :key="index">
+          <th scope="row">{{ index + 1}}</th>
+          <td colspan="2">{{ app.title }}</td>
+        </tr>
+        </tbody>
+      </table>
 
+      <pagination v-if="feed.total" :total="feed.total" :limit="limit" :currentPage="currentPage" :url="baseUrl" />
+    </div>
   </div>
 </template>
 
@@ -23,7 +34,6 @@ export default {
   name: "Apps",
   data(){
     return{
-      total: 500,
       limit: PAGE_LIMIT,
       apiUrl: '/app/index'
     }
@@ -35,7 +45,7 @@ export default {
     ...mapState({
       isLoading: state => state.apps.isLoading,
       feed: state => state.apps.data,
-      error: state => state.apps.error
+      error: state => state.apps.error,
     }),
     currentPage(){
       return Number(this.$route.query.page || '1')
