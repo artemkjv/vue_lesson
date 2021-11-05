@@ -3,7 +3,7 @@ import entitiesApi from '@/api/entities.js'
 const state = {
     data: null,
     isLoading: false,
-    error: null
+    error: false
 }
 
 export const mutationTypes = {
@@ -16,6 +16,7 @@ const mutations = {
     [mutationTypes.getEntitiesStart](state){
         state.isLoading = true;
         state.data = null
+        state.error = false
     },
     [mutationTypes.getEntitiesSuccess](state, payload){
         state.data = payload
@@ -23,6 +24,7 @@ const mutations = {
     },
     [mutationTypes.getEntitiesFailure](state){
         state.isLoading = false
+        state.error = true
     },
 }
 
