@@ -13,6 +13,7 @@
           <th scope="col">#</th>
           <th scope="col">Title</th>
           <th scope="col">Push Users</th>
+          <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -20,6 +21,11 @@
           <td>{{ index + 1}}</td>
           <td>{{ app.title }}</td>
           <td>{{ app.push_user_total }}</td>
+          <td>
+            <router-link :to="{name: 'AppView', params: { internalId: app.internal_id}}">
+              <i class="ion-eye default-icon"></i>
+            </router-link>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -80,7 +86,7 @@ export default {
       })
       const assembledUrl = `${parsedUrl.url}?${stringifiedParams}`
       this.$store.dispatch(actionTypes.getEntities, {apiUrl: assembledUrl})
-    }
+    },
   }
 }
 </script>

@@ -7365,3 +7365,11 @@ footer .attribution {
 .mb-0 {
     margin-bottom: 0!important;
 }
+
+.default-icon{
+    font-size: 150%;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}

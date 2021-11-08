@@ -63,14 +63,13 @@ export default {
       this.$store.dispatch(appActionTypes.createEntity, {
         name: this.name,
         platform: this.pickedPlatform
+      }).then(() => {
+        this.$router.push({name: 'AppIndex'})
       })
     }
   },
   mounted() {
     this.$store.dispatch(platformsActionTypes.getEntities, {apiUrl: PLATFORMS_URL})
-      .then(() => {
-        this.$router.push({name: 'AppIndex'})
-      })
   }
 }
 </script>

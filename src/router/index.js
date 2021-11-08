@@ -7,9 +7,10 @@ import Cabinet from '@/views/Cabinet'
 import authMiddleware from '@/router/middleware/auth'
 import guestMiddleware from '@/router/middleware/guest'
 import middlewarePipeline from '@/router/middlewarePipeline'
-import CabinetSettings from "@/views/CabinetSettings";
-import AppIndex from "@/views/App/Index";
+import CabinetSettings from "@/views/CabinetSettings"
+import AppIndex from "@/views/App/Index"
 import AppCreate from '@/views/App/Create'
+import AppView from '@/views/App/View'
 
 const routes = [
   {
@@ -64,6 +65,16 @@ const routes = [
     meta: {
       middleware: [
         authMiddleware
+      ]
+    }
+  },
+  {
+    path: '/app/:internalId',
+    name: 'AppView',
+    component: AppView,
+    meta: {
+      middleware: [
+          authMiddleware
       ]
     }
   },

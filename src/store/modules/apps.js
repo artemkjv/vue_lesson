@@ -1,15 +1,15 @@
-import entitiesApi from '@/api/entities.js'
+import entitiesApi from '@/api/entities'
 
 const state = {
     data: null,
     isLoading: false,
-    error: false
+    error: false,
 }
 
 export const mutationTypes = {
     getEntitiesStart: '[apps] getEntitiesStart',
     getEntitiesSuccess: '[apps] getEntitiesSuccess',
-    getEntitiesFailure: '[apps] getEntitiesFailure'
+    getEntitiesFailure: '[apps] getEntitiesFailure',
 }
 
 const mutations = {
@@ -29,7 +29,7 @@ const mutations = {
 }
 
 export const actionTypes = {
-    getEntities: '[apps] getEntities'
+    getEntities: '[apps] getEntities',
 }
 
 const actions  = {
