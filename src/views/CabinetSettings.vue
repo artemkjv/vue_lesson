@@ -52,7 +52,7 @@ export default {
   computed: {
     ...mapGetters({
       isSubmitting: getterTypes.isSubmitting,
-      validationErrors: getterTypes.validationErrors
+      validationErrors: getterTypes.validationErrors,
     })
   },
   methods: {

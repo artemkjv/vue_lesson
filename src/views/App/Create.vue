@@ -63,8 +63,8 @@ export default {
       this.$store.dispatch(appActionTypes.createEntity, {
         name: this.name,
         platform: this.pickedPlatform
-      }).then(() => {
-        this.$router.push({name: 'AppIndex'})
+      }).then(data => {
+        this.$router.push({name: 'AppConfig', params: {internalId: data.app.internal_id}})
       })
     }
   },

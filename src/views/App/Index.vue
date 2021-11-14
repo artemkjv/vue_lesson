@@ -22,7 +22,7 @@
           <td>{{ app.title }}</td>
           <td>{{ app.push_user_total }}</td>
           <td>
-            <router-link :to="{name: 'AppView', params: { internalId: app.internal_id}}">
+            <router-link :to="{name: 'AppView', params: {internalId: app.internal_id}}">
               <i class="ion-eye default-icon"></i>
             </router-link>
           </td>

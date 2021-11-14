@@ -12,8 +12,13 @@ const deleteEntity = (apiUrl) => {
     return axios.delete(apiUrl)
 }
 
+const editEntity = (apiUrl, data) => {
+    return axios.put(apiUrl, data)
+}
+
 export default {
     getEntity,
     createEntity,
-    deleteEntity
+    deleteEntity,
+    editEntity
 }

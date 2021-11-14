@@ -1,5 +1,6 @@
 import entityApi from '@/api/entity'
 import {
+    CONFIGURE_APP_URL,
     CREATE_APP_URL,
     DELETE_APP_URL,
     REPLACE_REGEX,
@@ -22,7 +23,10 @@ export const mutationTypes ={
     createEntityFailure: '[app] createEntityFailure',
     deleteEntityStart: '[app] deleteEntityStart',
     deleteEntitySuccess: '[app] deleteEntitySuccess',
-    deleteEntityFailure: '[app] deleteEntityFailure'
+    deleteEntityFailure: '[app] deleteEntityFailure',
+    configureEntityStart: '[app] configureEntityStart',
+    configureEntitySuccess: '[app] configureEntitySuccess',
+    configureEntityFailure: '[app] configureEntityFailure'
 }
 
 const mutations = {
@@ -56,6 +60,17 @@ const mutations = {
     },
     [mutationTypes.deleteEntityFailure]: (state) => {
         state.isSubmitting = false
+    },
+    [mutationTypes.configureEntityStart]: (state) => {
+        state.isSubmitting = true
+    },
+    [mutationTypes.configureEntitySuccess]: (state, data) => {
+        state.isSubmitting = false
+        state.data = data
+    },
+    [mutationTypes.configureEntityFailure]: (state, errors) => {
+        state.isSubmitting = false
+        state.validationErrors = errors
     }
 }
 
@@ -63,6 +78,7 @@ export const actionTypes = {
     getEntity: '[app] getEntity',
     createEntity: '[app] createEntity',
     deleteEntity: '[app] deleteEntity',
+    configureEntity: '[app] configureEntity'
 }
 
 const actions = {
@@ -84,9 +100,9 @@ const actions = {
         context.commit(mutationTypes.createEntityStart)
         return new Promise(resolve => {
             entityApi.createEntity(CREATE_APP_URL, data)
-                .then(() => {
+                .then(response => {
                     context.commit(mutationTypes.createEntitySuccess)
-                    resolve()
+                    resolve(response.data)
                 })
                 .catch(result => {
                     context.commit(mutationTypes.createEntityFailure, result.response.data.errors)
@@ -102,9 +118,23 @@ const actions = {
                     context.commit(mutationTypes.deleteEntitySuccess)
                     resolve()
                 })
+                .catch(() => {
+                    context.commit(mutationTypes.deleteEntityFailure)
+                })
+        })
+    },
+    [actionTypes.configureEntity]: (context, {internalId, data}) => {
+        context.commit(mutationTypes.configureEntityStart)
+        let apiUrl = CONFIGURE_APP_URL.replace(REPLACE_REGEX, internalId)
+        return new Promise(resolve => {
+            entityApi.editEntity(apiUrl, data)
+                .then(response => {
+                    context.commit(mutationTypes.configureEntitySuccess, response.data)
+                    resolve(response.data)
+                })
                 .catch(result => {
                     console.log(result.response.data.errors)
-                    context.commit(mutationTypes.deleteEntityFailure)
+                    context.commit(mutationTypes.configureEntityFailure, result.response.data.errors)
                 })
         })
     }
