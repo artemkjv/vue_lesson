@@ -9,7 +9,8 @@ import {
 const state = {
     validationErrors: null,
     data: null,
-    isSubmitting: false
+    isSubmitting: false,
+    isLoading: false
 }
 
 export const mutationTypes ={
@@ -27,13 +28,15 @@ export const mutationTypes ={
 const mutations = {
     [mutationTypes.getEntityStart]: () => {
         state.data = null
+        state.isLoading = true
     },
     [mutationTypes.getEntitySuccess]: (state, payload) => {
-        state.isSubmitting = false
         state.data = payload
+        state.isLoading = false
     },
     [mutationTypes.getEntityFailure]: (state, errors) => {
         state.validationErrors = errors
+        state.isLoading = false
     },
     [mutationTypes.createEntityStart]: state => {
         state.isSubmitting = true
@@ -45,13 +48,13 @@ const mutations = {
         state.isSubmitting = false
         state.validationErrors = errors
     },
-    deleteEntityStart: (state) => {
+    [mutationTypes.deleteEntityStart]: (state) => {
         state.isSubmitting = true
     },
-    deleteEntitySuccess: (state) => {
+    [mutationTypes.deleteEntitySuccess]: (state) => {
         state.isSubmitting = false
     },
-    deleteEntityFailure: (state) => {
+    [mutationTypes.deleteEntityFailure]: (state) => {
         state.isSubmitting = false
     }
 }
@@ -59,7 +62,7 @@ const mutations = {
 export const actionTypes = {
     getEntity: '[app] getEntity',
     createEntity: '[app] createEntity',
-    deleteEntity: '[app] deleteEntity'
+    deleteEntity: '[app] deleteEntity',
 }
 
 const actions = {

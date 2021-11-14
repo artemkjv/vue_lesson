@@ -7373,3 +7373,10 @@ footer .attribution {
 .cursor-pointer{
     cursor: pointer;
 }
+
+.content-border{
+    padding: 1.5rem;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgb(203 209 215) 0px 1px 4px;
+    border-radius: 15px;
+}

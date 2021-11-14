@@ -11,6 +11,7 @@ import CabinetSettings from "@/views/CabinetSettings"
 import AppIndex from "@/views/App/Index"
 import AppCreate from '@/views/App/Create'
 import AppView from '@/views/App/View'
+import AppConfig from '@/views/App/Config'
 
 const routes = [
   {
@@ -72,6 +73,16 @@ const routes = [
     path: '/app/:internalId',
     name: 'AppView',
     component: AppView,
+    meta: {
+      middleware: [
+          authMiddleware
+      ]
+    }
+  },
+  {
+    path: '/app/:internalId/config',
+    name: 'AppConfig',
+    component: AppConfig,
     meta: {
       middleware: [
           authMiddleware
