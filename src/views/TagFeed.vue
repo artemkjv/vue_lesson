@@ -4,10 +4,8 @@
     <div class="container page">
       <div class="row">
         <div class="col-md-9">
-          <mcv-feed-toggler />
-          <mcv-feed :api-url="apiUrl">
-
-          </mcv-feed>
+          <mcv-feed-toggler :tag-name="tagName" />
+          <mcv-feed :api-url="apiUrl" />
         </div>
         <div class="col-md-3">
           <PopularTags />
@@ -21,18 +19,22 @@
 import McvFeed from '@/components/Feed'
 import Banner from "@/components/Banner";
 import PopularTags from "@/components/PopularTags";
-import McvFeedToggler from "@/components/FeedToggler";
+import McvFeedToggler from '@/components/FeedToggler';
+
 export default {
-  name: "McvGlobalFeed",
+  name: "TagFeed",
   components: {
-    McvFeedToggler,
     Banner,
     McvFeed,
-    PopularTags
+    PopularTags,
+    McvFeedToggler
   },
-  data(){
-    return {
-      apiUrl: '/articles'
+  computed: {
+    tagName() {
+      return this.$route.params.slug
+    },
+    apiUrl() {
+      return `/articles?tag=${this.tagName}`
     }
   }
 }

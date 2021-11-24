@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-if="isLoading">Loading...</div>
-    <div v-if="error">Something bad happened</div>
+    <loading v-if="isLoading" />
+    <error-message v-if="error" />
     <div v-if="feed">
       <div class="article-preview" v-for="(article, index) in feed.articles" :key="index">
         <div class="article-meta">
@@ -18,15 +18,15 @@
             ADD TO FAVORITES
           </div>
         </div>
-        <router-link :to="{name: 'article', params: {slug: article.slug}}" class="preview-link">
+        <router-link :to="{name: 'Article', params: {slug: article.slug}}" class="preview-link">
           <h1>{{article.title}}</h1>
           <p>{{article.description}}</p>
           <span>Read more...</span>
           TAG LIST
         </router-link>
       </div>
+      <mcv-pagination :total="feed.articlesCount" :limit="limit" :currentPage="currentPage" :url="baseUrl" />
     </div>
-    <mcv-pagination :total="101" :limit="limit" :currentPage="currentPage" :url="baseUrl" />
 
   </div>
 </template>
@@ -37,6 +37,8 @@ import {actionTypes} from "@/store/modules/feed";
 import McvPagination from '@/components/Pagination';
 import {PAGE_LIMIT} from "@/helpers/vars";
 import {stringify, parseUrl} from 'query-string'
+import Loading from "@/components/Loading";
+import ErrorMessage from "@/components/ErrorMessage";
 
 export default {
   name: "Feed",
@@ -48,12 +50,13 @@ export default {
   },
   data(){
     return{
-      total: 500,
       limit: PAGE_LIMIT,
     }
   },
   components: {
-    McvPagination
+    ErrorMessage,
+    McvPagination,
+    Loading
   },
   computed: {
     ...mapState({
