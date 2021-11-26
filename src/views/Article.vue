@@ -16,7 +16,7 @@
               {{article.createdAt}}
             </span>
           </div>
-          <span>
+          <span v-if="isAuthor">
             <router-link class="btn btn-outline-secondary btn-small" :to="{name: 'EditArticle', params: {slug: article.slug}}">
               <i class="ion-edit" />
               Edit Article
@@ -46,10 +46,10 @@
 </template>
 
 <script>
-import {actionTypes} from '@/store/modules/article'
+import {actionTypes as articleActionTypes} from '@/store/modules/article'
 import {mapState} from 'vuex'
 import {mapGetters} from 'vuex'
-import {getterTypes} from "@/store/modules/auth";
+import {getterTypes as authGetterTypes} from "@/store/modules/auth";
 import Loading from "@/components/Loading";
 import ErrorMessage from "@/components/ErrorMessage";
 
@@ -66,11 +66,29 @@ export default {
       article: state => state.article.data
     }),
     ...mapGetters({
-      isLoggedIn: getterTypes.isLoggedIn
-    })
+      isLoggedIn: authGetterTypes.isLoggedIn,
+      currentUser: authGetterTypes.currentUser
+    }),
+    isAuthor(){
+      if(!this.currentUser || !this.article){
+        return false
+      }
+      return this.currentUser === this.article.author.username
+    }
   },
   mounted() {
-    this.$store.dispatch(actionTypes.getArticle, {slug: this.slug})
+    this.$store.dispatch(articleActionTypes.getArticle, {slug: this.slug})
+  },
+  methods: {
+    deleteArticle(){
+      this.$store
+          .dispatch(
+              articleActionTypes.deleteArticle,
+              {slug: this.slug}
+          ).then(() => {
+            this.$router.push({name: 'GlobalFeed'})
+           })
+    }
   }
 }
 </script>
