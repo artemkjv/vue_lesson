@@ -12,16 +12,16 @@
       <div class="content-body">
         <form @submit.prevent="configureApp">
           <div class="form-group">
-          <label for="server_key">Server key</label>
-          <input type="text" class="form-control" v-model="data.app.server_key" id="server_key" name="server_key">
+          <label for="serverKey">Server key</label>
+          <input type="text" class="form-control" v-model="data.app.serverKey" id="serverKey" name="serverKey">
         </div>
           <div class="form-group mt-3">
-            <label for="sender_id">Sender Id</label>
-            <input type="text" class="form-control" v-model="data.app.sender_id" id="sender_id" name="sender_id">
+            <label for="senderId">Sender Id</label>
+            <input type="text" class="form-control" v-model="data.app.senderId" id="senderId" name="senderId">
           </div>
           <div class="form-group mt-3">
             <div class="d-flex align-items-center">
-              <img src="http://localhost/assets/images/firebase_icon.svg" width="15px" alt="Firebase">
+              <img :src="baseUrl + '/assets/images/firebase-icon.svg'" id="firebase-icon" alt="Firebase">
               <a href="https://console.firebase.google.com/" class="non-underline" style="margin: 2px 0 0 5px;">Copy from your Firebase Console</a>
             </div>
           </div>
@@ -38,6 +38,7 @@
 <script>
 import {actionTypes} from "@/store/modules/app";
 import {mapState} from "vuex";
+import {BASE_URL} from "@/helpers/vars";
 
 export default {
   name: "AppConfig",
@@ -45,7 +46,10 @@ export default {
     ...mapState({
       isSubmitting: state => state.app.isSubmitting,
       data: state => state.app.data
-    })
+    }),
+    baseUrl(){
+      return BASE_URL
+    }
   },
   mounted() {
     let internalId = this.$route.params.internalId
@@ -55,12 +59,12 @@ export default {
   },
   methods: {
     configureApp(){
-      let internalId = this.data.app.internal_id
+      let internalId = this.data.app.internalId
       this.$store.dispatch(actionTypes.configureEntity, {
         internalId: internalId,
         data: {
-          serverKey: this.data.app.server_key,
-          senderId: this.data.app.sender_id
+          serverKey: this.data.app.serverKey,
+          senderId: this.data.app.senderId
         }
       }).then(() => {
         this.$router.push({name: 'AppIndex'})
@@ -71,5 +75,7 @@ export default {
 </script>
 
 <style scoped>
-
+#firebase-icon{
+  width: 20px;
+}
 </style>

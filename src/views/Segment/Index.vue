@@ -2,7 +2,7 @@
 <template>
   <div class="container">
     <div class="d-flex">
-      <router-link :to="{name: 'AppCreate'}" class="btn btn-primary mb-2">New App/Website</router-link>
+      <router-link :to="{name: 'SegmentCreate'}" class="btn btn-primary mb-2">New Segment</router-link>
     </div>
     <loading v-if="isLoading" />
     <error-message v-if="error" />
@@ -17,14 +17,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(app, index) in feed.apps" :key="index">
+        <tr v-for="(segment, index) in feed.segments" :key="index">
           <td>{{ index + 1}}</td>
-          <td>{{ app.title }}</td>
-          <td>{{ app.pushUserTotal }}</td>
+          <td>{{ segment.name }}</td>
+          <td>{{ segment.pushUserTotal }}</td>
           <td>
-            <router-link :to="{name: 'AppView', params: {internalId: app.internalId}}">
-              <i class="ion-eye default-icon"></i>
-            </router-link>
+            Actions
           </td>
         </tr>
         </tbody>
@@ -37,20 +35,20 @@
 
 <script>
 import {mapState} from 'vuex'
-import {actionTypes} from "@/store/modules/apps";
+import {actionTypes} from "@/store/modules/segments";
 import Pagination from '@/components/Pagination';
 import {PAGE_LIMIT} from "@/helpers/vars";
 import {stringify, parseUrl} from 'query-string'
 import Loading from "@/components/Loading";
 import ErrorMessage from "@/components/ErrorMessage";
-import {APPS_URL} from "@/helpers/vars";
+import {SEGMENTS_URL} from "@/helpers/vars";
 
 export default {
-  name: "AppIndex",
+  name: "SegmentIndex",
   data(){
     return{
       limit: PAGE_LIMIT,
-      apiUrl: APPS_URL
+      apiUrl: SEGMENTS_URL
     }
   },
   components: {
@@ -60,9 +58,9 @@ export default {
   },
   computed: {
     ...mapState({
-      isLoading: state => state.apps.isLoading,
-      feed: state => state.apps.data,
-      error: state => state.apps.error,
+      isLoading: state => state.segments.isLoading,
+      feed: state => state.segments.data,
+      error: state => state.segments.error,
     }),
     currentPage(){
       return Number(this.$route.query.page || '1')

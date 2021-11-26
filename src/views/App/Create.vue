@@ -37,7 +37,6 @@
 import McvValidationErrors from '@/components/ValidationErrors'
 import {mapState} from "vuex";
 import {actionTypes as appActionTypes} from '@/store/modules/app'
-import {PLATFORMS_URL} from "@/helpers/vars";
 import {actionTypes as platformsActionTypes} from '@/store/modules/platforms'
 
 export default {
@@ -64,12 +63,12 @@ export default {
         name: this.name,
         platform: this.pickedPlatform
       }).then(data => {
-        this.$router.push({name: 'AppConfig', params: {internalId: data.app.internal_id}})
+        this.$router.push({name: 'AppConfig', params: {internalId: data.app.internalId}})
       })
     }
   },
   mounted() {
-    this.$store.dispatch(platformsActionTypes.getEntities, {apiUrl: PLATFORMS_URL})
+    this.$store.dispatch(platformsActionTypes.getEntities)
   }
 }
 </script>

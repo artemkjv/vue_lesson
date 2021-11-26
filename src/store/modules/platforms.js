@@ -1,4 +1,5 @@
 import entitiesApi from "@/api/entities";
+import {PLATFORMS_URL} from "@/helpers/vars";
 
 const state = {
     data : null,
@@ -33,10 +34,10 @@ export const actionTypes = {
 }
 
 const actions = {
-    [actionTypes.getEntities]: (context, {apiUrl}) => {
+    [actionTypes.getEntities]: (context) => {
         context.commit(mutationTypes.getEntitiesStart)
         return new Promise(resolve => {
-            entitiesApi.getEntities(apiUrl)
+            entitiesApi.getEntities(PLATFORMS_URL)
                 .then(response => {
                 context.commit(mutationTypes.getEntitiesSuccess, response.data)
                 resolve(response.data)

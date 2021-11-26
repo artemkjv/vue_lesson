@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="content-body">
-      <p class="mb-5">Your App ID: {{data.app.internal_id}}</p>
+      <p class="mb-5">Your App ID: {{data.app.internalId}}</p>
       <h3>Test for Subscribed Users</h3>
       <p class="mb-4 mt-3">Build and run your app. The Push SDK, once set up correctly, will automatically handle subscribing your device to notifications.</p>
     </div>
@@ -41,7 +41,7 @@ export default {
   methods: {
     removeApp(){
       this.$store.dispatch(actionTypes.deleteEntity,{
-        internalId: this.data.app.internal_id
+        internalId: this.data.app.internalId
       })
       .then(() => {
         this.$router.push({name: 'AppIndex'})

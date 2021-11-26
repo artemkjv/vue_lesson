@@ -19,9 +19,17 @@
           </li>
           <li>
             <div class="sidebar-group">
-              <router-link :to="{name: 'AppIndex'}">
+              <router-link class="sidebar-link" :to="{name: 'AppIndex'}">
                 <i class="ion-grid sidebar-icon" />
-                <span class="sidebar-text">Applications</span>
+                <span class="sidebar-text">
+                  Applications
+                </span>
+              </router-link>
+              <router-link class="sidebar-link" :to="{name: 'SegmentIndex'}">
+                <i class="ion-pie-graph sidebar-icon" />
+                <span class="sidebar-text">
+                  Segments
+                </span>
               </router-link>
             </div>
           </li>

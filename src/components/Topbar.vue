@@ -25,7 +25,7 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'Cabinet', params: {slug: currentUser.login}}" active-class="active">
-              <img v-if="currentUser.image" :src="currentUser.image" class="user-pic" alt="User Picture">
+              <img v-if="currentUser.image" :src="baseUrl + currentUser.image" class="user-pic" alt="User Picture">
               {{ currentUser.login }}
             </router-link>
           </li>
@@ -49,6 +49,7 @@
 <script>
 import {getterTypes} from "@/store/modules/auth";
 import {mapGetters, mapState} from "vuex"
+import {BASE_URL} from "@/helpers/vars";
 
 export default {
   name: 'McvTopBar',
@@ -59,8 +60,11 @@ export default {
         isAnonymous: getterTypes.isAnonymous
     }),
     ...mapState({
-      siteName: state => state.siteName
-    })
+      siteName: state => state.siteName,
+    }),
+    baseUrl(){
+      return BASE_URL
+    }
   }
 }
 </script>
