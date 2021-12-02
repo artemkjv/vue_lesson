@@ -22,6 +22,8 @@ export const REPLACE_REGEX = /:(\w+)/
 export const FILTER_TYPES = {
     language: {
         title: 'Language',
+        description: 'The language of the user\'s device',
+        kind: 'languages',
         predicates: [
             {
                 name: 'Is',
@@ -40,6 +42,8 @@ export const FILTER_TYPES = {
     },
     country: {
        title: 'Country',
+       description: 'Country the device was in the last time it communicated with our servers',
+        kind: 'countries',
        predicates: [
            {
                name: 'Is',
@@ -58,6 +62,8 @@ export const FILTER_TYPES = {
     },
     createdAt: {
         title: 'First Session',
+        description: 'The first date/time the device communicated with our servers',
+        kind: 'firstSession',
         predicates: [
             {
                 name: 'Less Than',
@@ -74,6 +80,8 @@ export const FILTER_TYPES = {
     },
     activeAt: {
         title: 'Last Session',
+        description: 'The most recent date/time the device communicated with our severs',
+        kind: 'lastSession',
         predicates: [
             {
                 name: 'Less Than',
@@ -90,6 +98,8 @@ export const FILTER_TYPES = {
     },
     sessionsCount: {
         title: 'Sessions Count',
+        description: 'Total number of times the device has opened your app or website',
+        kind: 'sessionsCount',
         predicates: [
             {
                 name: 'Less Than',
@@ -110,6 +120,8 @@ export const FILTER_TYPES = {
     },
     tag: {
         title: 'Tag',
+        description: 'User Tag',
+        kind: 'tags',
         predicates: [
             {
                 name: 'Is',
@@ -126,6 +138,8 @@ export const FILTER_TYPES = {
     },
     channel: {
         title: 'Platform',
+        description: 'Device operating system',
+        kind: 'platforms',
         predicates: [
             {
                 name: 'Is',

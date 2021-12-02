@@ -7377,6 +7377,25 @@ footer .attribution {
 .content-border{
     padding: 1.5rem;
     background-color: rgb(255, 255, 255);
-    box-shadow: rgb(203 209 215) 0px 1px 4px;
+    box-shadow: rgb(203 209 215) 0 1px 4px;
     border-radius: 15px;
+}
+
+.filter-add-button{
+    background: rgb(246, 247, 248);
+    border-radius: 0.30rem;
+    padding: 15px 9px;
+    margin-bottom: 10px;
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    color: #0d6efd !important;
+}
+
+.filter-add-button:hover{
+    color: #0a58ca !important;
+}
+
+.justify-content-center{
+    justify-content: center;
 }

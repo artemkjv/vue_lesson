@@ -11,11 +11,12 @@ const state = {
     data: {
         segment: {
             name: '',
-            rules: [
+            filters: [
 
             ]
         }
     },
+    addedFilters: [],
     isSubmitting: false,
     isLoading: false
 }
@@ -30,6 +31,7 @@ export const mutationTypes ={
     deleteEntityStart: '[segment] deleteEntityStart',
     deleteEntitySuccess: '[segment] deleteEntitySuccess',
     deleteEntityFailure: '[segment] deleteEntityFailure',
+    addFilter: '[segment] Add Filter'
 }
 
 const mutations = {
@@ -64,6 +66,9 @@ const mutations = {
     [mutationTypes.deleteEntityFailure]: (state) => {
         state.isSubmitting = false
     },
+    [mutationTypes.addFilter]: (state, filterType) => {
+        state.addedFilters.unshift(filterType)
+    }
 }
 
 export const actionTypes = {
