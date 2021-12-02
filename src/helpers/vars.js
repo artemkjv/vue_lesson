@@ -34,8 +34,8 @@ export const FILTER_TYPES = {
         ],
         option: true,
         key: false,
-        data: () => {
-            return eval('languages')
+        data: (state) => {
+            return state.languages.data
         }
     },
     country: {
@@ -52,8 +52,8 @@ export const FILTER_TYPES = {
        ],
         option: true,
         key: false,
-        data: () => {
-           return eval('countries')
+        data: (state) => {
+           return state.countries.data
         }
     },
     createdAt: {
@@ -138,8 +138,8 @@ export const FILTER_TYPES = {
         ],
         option: true,
         key: false,
-        data: () => {
-            return eval('platforms')
+        data: (state) => {
+            return state.platforms.data
         }
     }
 }

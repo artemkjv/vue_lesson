@@ -2,7 +2,6 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 offset-md-3 col-xs-12">
-
         <h1 class="text-xs-center">Create Segment</h1>
         <mcv-validation-errors v-if="validationErrors" :validation-errors="validationErrors"/>
         <form @submit.prevent="onSubmit()" class="ng-pristine ng-valid ng-valid-email">
@@ -12,7 +11,8 @@
             </label>
             <input v-model="segment.name" id="name" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" type="text">
           </fieldset>
-          <div class="filter-types-wrapper">
+          <div class="filter-types-wrapper" v-if="countries && languages && platforms">
+
             <div class="filter-type" v-for="(filterType, index) in filterTypes" :key="index">
                   <div class="title">{{filterType.title}}</div>
                     <select class="form-control" name="predicate">
@@ -25,7 +25,7 @@
                       </option>
                     </select>
                     <select v-if="filterType.option" :name="index">
-                      {{ filterType.data() }}
+                      <option :value="entity.id" v-for="entity in filterType.data(this.$store.state)" :key="entity">{{ entity.name }}</option>
                     </select>
                 </div>
           </div>
