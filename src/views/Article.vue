@@ -21,7 +21,7 @@
               <i class="ion-edit" />
               Edit Article
             </router-link>
-            <button class="btn btn-outline-danger btn-small">
+            <button class="btn btn-outline-danger btn-small" @click="deleteArticle">
               <i class="ion-trash-a" />
               Delete Article
             </button>
@@ -38,7 +38,7 @@
         <div>
           <p>{{article.body}}</p>
         </div>
-        TAG LIST
+        <tag-list :tags="article.tagList" />
       </div>
     </div>
   </div>
@@ -52,10 +52,11 @@ import {mapGetters} from 'vuex'
 import {getterTypes as authGetterTypes} from "@/store/modules/auth";
 import Loading from "@/components/Loading";
 import ErrorMessage from "@/components/ErrorMessage";
+import TagList from "@/components/TagList";
 
 export default {
   name: "Article",
-  components: {ErrorMessage, Loading},
+  components: {TagList, ErrorMessage, Loading},
   computed:{
     slug(){
       return this.$route.params.slug
@@ -73,7 +74,7 @@ export default {
       if(!this.currentUser || !this.article){
         return false
       }
-      return this.currentUser === this.article.author.username
+      return this.currentUser.username === this.article.author.username
     }
   },
   mounted() {

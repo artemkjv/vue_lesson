@@ -22,7 +22,7 @@
           <h1>{{article.title}}</h1>
           <p>{{article.description}}</p>
           <span>Read more...</span>
-          TAG LIST
+          <tag-list :tags="article.tagList" />
         </router-link>
       </div>
       <mcv-pagination :total="feed.articlesCount" :limit="limit" :currentPage="currentPage" :url="baseUrl" />
@@ -39,6 +39,7 @@ import {PAGE_LIMIT} from "@/helpers/vars";
 import {stringify, parseUrl} from 'query-string'
 import Loading from "@/components/Loading";
 import ErrorMessage from "@/components/ErrorMessage";
+import TagList from "@/components/TagList";
 
 export default {
   name: "Feed",
@@ -54,6 +55,7 @@ export default {
     }
   },
   components: {
+    TagList,
     ErrorMessage,
     McvPagination,
     Loading

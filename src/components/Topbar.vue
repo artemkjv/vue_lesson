@@ -12,7 +12,7 @@
         </li>
         <template v-if="isLoggedIn">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'GlobalFeed'}" active-class="active">
+            <router-link class="nav-link" :to="{name: 'CreateArticle'}" active-class="active">
               <i class="ion-compose"></i> &nbsp;
               New Article
             </router-link>
