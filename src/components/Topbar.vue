@@ -18,13 +18,13 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'GlobalFeed'}" active-class="active">
+            <router-link class="nav-link" :to="{name: 'Settings'}" active-class="active">
               <i class="ion-gear-a"></i> &nbsp;
               Settings
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'GlobalFeed', params: {slug: currentUser.username}}" active-class="active">
+            <router-link class="nav-link" :to="{name: 'Settings', params: {slug: currentUser.username}}" active-class="active">
               <img :src="currentUser.image" class="user-pic" alt="User Picture">
               &nbsp;
               {{ currentUser.username }}
