@@ -15,7 +15,11 @@
             <span class="date">{{ article.createdAt }}</span>
           </div>
           <div class="pull-xs-right">
-            ADD TO FAVORITES
+            <btn-favorites
+                :is-favorite="article.favorited"
+                :article-slug="article.slug"
+                :favorites-count="article.favoritesCount"
+            />
           </div>
         </div>
         <router-link :to="{name: 'Article', params: {slug: article.slug}}" class="preview-link">
@@ -40,6 +44,7 @@ import {stringify, parseUrl} from 'query-string'
 import Loading from "@/components/Loading";
 import ErrorMessage from "@/components/ErrorMessage";
 import TagList from "@/components/TagList";
+import BtnFavorites from "@/components/BtnFavorites";
 
 export default {
   name: "Feed",
@@ -55,6 +60,7 @@ export default {
     }
   },
   components: {
+    BtnFavorites,
     TagList,
     ErrorMessage,
     McvPagination,

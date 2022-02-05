@@ -20,9 +20,21 @@ const updateArticle = (slug, body) => {
         .then(response => response.data.article)
 }
 
+const addToFavorites = slug => {
+    return axios.post(`/articles/${slug}/favorite`)
+        .then(response => response.data.article)
+}
+
+const removeFromFavorites = slug => {
+    return axios.delete(`/articles/${slug}/favorite`)
+        .then(response => response.data.article)
+}
+
 export default {
     getArticle,
     deleteArticle,
     createArticle,
-    updateArticle
+    updateArticle,
+    addToFavorites,
+    removeFromFavorites
 }

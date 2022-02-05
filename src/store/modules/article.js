@@ -12,12 +12,16 @@ export const mutationTypes = {
     getArticleFailure: '[article] Get article failure',
     deleteArticleStart: '[article] Delete article start',
     deleteArticleSuccess: '[article] Delete article success',
-    deleteArticleFailure: '[article] Delete article failure'
+    deleteArticleFailure: '[article] Delete article failure',
+    addToFavoritesStart: '[article] Add to favorites start',
+    addToFavoritesSuccess: '[article] Add to favorites success',
+    addToFavoritesFailure: '[article] Add to favorites failure',
 }
 
 export const actionTypes = {
     getArticle: '[article] Get article',
-    deleteArticle: '[article] Delete article'
+    deleteArticle: '[article] Delete article',
+    addToFavorites: '[article] Add to favorites'
 }
 
 const mutations = {
@@ -34,7 +38,10 @@ const mutations = {
     },
     [mutationTypes.deleteArticleStart](){},
     [mutationTypes.deleteArticleSuccess](){},
-    [mutationTypes.deleteArticleFailure](){}
+    [mutationTypes.deleteArticleFailure](){},
+    [mutationTypes.addToFavoritesStart](){},
+    [mutationTypes.addToFavoritesSuccess](){},
+    [mutationTypes.addToFavoritesFailure](){}
 }
 
 const actions = {
@@ -63,7 +70,24 @@ const actions = {
                     context.commit(mutationTypes.deleteArticleFailure)
                 })
         })
+    },
+    [actionTypes.addToFavorites](context, {slug, isFavorite}){
+        return new Promise(resolve => {
+            context.commit(mutationTypes.addToFavoritesStart)
+            const promise = isFavorite
+                ? articleApi.removeFromFavorites(slug)
+                : articleApi.addToFavorites(slug)
+            promise
+                .then(article => {
+                    context.commit(mutationTypes.addToFavoritesSuccess)
+                    resolve(article)
+                })
+                .catch(() => {
+                    context.commit(mutationTypes.addToFavoritesFailure)
+                })
+        })
     }
+
 }
 
 export default {
