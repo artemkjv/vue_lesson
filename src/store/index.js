@@ -5,6 +5,7 @@ import popularTags from "@/store/modules/popularTags";
 import article from "@/store/modules/article";
 import createArticle from "@/store/modules/createArticle";
 import editArticle from "@/store/modules/editArticle";
+import userProfile from "@/store/modules/userProfile";
 
 export default createStore({
   state: {
@@ -19,6 +20,7 @@ export default createStore({
     popularTags,
     article,
     createArticle,
-    editArticle
+    editArticle,
+    userProfile
   }
 })

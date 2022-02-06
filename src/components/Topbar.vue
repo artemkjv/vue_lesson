@@ -24,7 +24,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'Settings', params: {slug: currentUser.username}}" active-class="active">
+            <router-link class="nav-link" :to="{name: 'UserProfile', params: {slug: currentUser.username}}" active-class="active">
               <img :src="currentUser.image" class="user-pic" alt="User Picture">
               &nbsp;
               {{ currentUser.username }}
